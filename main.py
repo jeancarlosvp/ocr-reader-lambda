@@ -21,4 +21,4 @@ app.include_router(payments_router)
 def root() -> Dict[str, object]:
     return {"message": "Bienvenido al servicio ocr-worksheet"}
 
-handler = Mangum(app)
+# handler = Mangum(app)

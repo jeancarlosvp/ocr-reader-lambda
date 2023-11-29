@@ -1,9 +1,9 @@
 import gspread
 import easyocr as ocr
 
-def get_worksheet(credentials, book_name, sheet_name):
+def get_worksheet(credentials, book_id, sheet_name):
     gc = gspread.service_account_from_dict(credentials)
-    book = gc.open(book_name)
+    book = gc.open_by_key(book_id)
     worksheet = book.worksheet(sheet_name)
     return worksheet
 

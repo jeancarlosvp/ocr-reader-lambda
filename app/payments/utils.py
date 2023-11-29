@@ -1,4 +1,4 @@
-from app.config import reader, worksheet
+from app.config import reader
 from app.payments.services import (
     get_data_bcp,
     get_data_ibk,
@@ -43,29 +43,14 @@ def get_bank_data(selection, result_list):
 def update_worksheet(worksheet, row_to_add, matches_dict):
     date_now = datetime.now().strftime("%d/%m/%Y")
     try:
-        # cell_updates = [
-        #     (f'B{row_to_add}', date_now),
-        #     (f'C{row_to_add}', matches_dict.get("DNI", "")),
-        #     (f'F{row_to_add}', matches_dict.get("Total", "")),
-        #     (f'G{row_to_add}', matches_dict.get("Banco", "")),
-        #     (f'P{row_to_add}', "DS"),
-        #     (f'Q{row_to_add}', matches_dict.get("Codigo de operacion", "-")),
-        #     (f'R{row_to_add}', matches_dict.get("Numero tarjeta", ""))
-        # ]
         cell_updates = [
             (f'B{row_to_add}', date_now),
             (f'C{row_to_add}', matches_dict.get("DNI", "")),
-            (f'D{row_to_add}', matches_dict.get("Titular", "")),
-            (f'E{row_to_add}', matches_dict.get("Comision", "")),
             (f'F{row_to_add}', matches_dict.get("Total", "")),
             (f'G{row_to_add}', matches_dict.get("Banco", "")),
-            (f'H{row_to_add}', matches_dict.get("Banco", "")),
-            (f'I{row_to_add}', matches_dict.get("Numero cuenta", "")),
-            (f'O{row_to_add}', matches_dict.get("Devolucion", "")),
             (f'P{row_to_add}', "DS"),
             (f'Q{row_to_add}', matches_dict.get("Codigo de operacion", "-")),
-            (f'R{row_to_add}', matches_dict.get("Numero tarjeta", "")),
-            (f'S{row_to_add}', matches_dict.get("Comunidad", ""))
+            (f'R{row_to_add}', matches_dict.get("Numero tarjeta", ""))
         ]
         for cell, value in cell_updates:
             worksheet.update(cell, value, value_input_option='USER_ENTERED')

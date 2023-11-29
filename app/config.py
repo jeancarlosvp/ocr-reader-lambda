@@ -20,10 +20,10 @@ CREDENTIALS_DICT = {
     "universe_domain": config("UNIVERSE_DOMAIN")
 }
 
-BOOK = config("BOOK")
+BOOK_ID = config("BOOK_ID")
 SHEET_PAYMENT = config("SHEET_PAYMENT")
-SHEET_DATA_USERS = config("SHEET_DATA_USERS")
+
 SEND_GS = config("SEND_GS")
-worksheet = get_worksheet(CREDENTIALS_DICT, BOOK, SHEET_PAYMENT)
-worksheet_data_users = get_worksheet(CREDENTIALS_DICT, BOOK, SHEET_DATA_USERS)
+
+worksheet = get_worksheet(CREDENTIALS_DICT, BOOK_ID, SHEET_PAYMENT)
 reader = get_ocr_model()
