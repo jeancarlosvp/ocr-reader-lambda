@@ -97,8 +97,6 @@ def get_data_scotiabank(result_list):
         for key, pattern in patterns.items():
             match = pattern.search(text)
             if match:
-                print(match)
-                print(text)
                 if key == "Codigo de operacion":
                     matches_dict[key] = re.sub("\D", "", text)
                 elif key == "Numero tarjeta":

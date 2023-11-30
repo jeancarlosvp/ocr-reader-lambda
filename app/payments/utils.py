@@ -41,19 +41,23 @@ def get_bank_data(selection, result_list):
         return {}
     
 def update_worksheet(worksheet, row_to_add, matches_dict):
-    date_now = datetime.now().strftime("%d/%m/%Y")
     try:
-        cell_updates = [
-            (f'B{row_to_add}', date_now),
-            (f'C{row_to_add}', matches_dict.get("DNI", "")),
-            (f'F{row_to_add}', matches_dict.get("Total", "")),
-            (f'G{row_to_add}', matches_dict.get("Banco", "")),
-            (f'P{row_to_add}', "DS"),
-            (f'Q{row_to_add}', matches_dict.get("Codigo de operacion", "-")),
-            (f'R{row_to_add}', matches_dict.get("Numero tarjeta", ""))
-        ]
-        for cell, value in cell_updates:
-            worksheet.update(cell, value, value_input_option='USER_ENTERED')
+        date_now = datetime.now().strftime("%d/%m/%Y")
+        worksheet.batch_update([
+            {
+                'range': f'B{row_to_add}:C{row_to_add}',
+                'values': [[date_now, matches_dict.get("DNI", "")]]
+            },
+            {
+                'range': f'F{row_to_add}:G{row_to_add}',
+                'values': [[matches_dict.get("Total", ""), matches_dict.get("Banco", "")]]
+            },
+            {
+                'range': f'P{row_to_add}:R{row_to_add}',
+                'values': [["DS", matches_dict.get("Codigo de operacion", "-"), matches_dict.get("Numero tarjeta", "")]]
+            }
+        ], value_input_option='USER_ENTERED')
+
     except Exception as e:
         print(e)
         return {"message": "Error updating worksheet"}

@@ -24,11 +24,11 @@ async def upload_payment_file(file: Union[UploadFile, None], request: Request):
         banks = ["INTERBANK", "BBVA", "SCOTIABANK", "BANBIF"]
         selection = select_bank(result_list, banks)
         matches_dict = get_bank_data(selection, result_list)
+        print(matches_dict)
         to_send = SEND_GS == "True"
         if to_send:
             update_worksheet(worksheet, row_to_add, matches_dict)
 
-        return {'message': 'File uploaded successfully', 'row': row_to_add, 'data': matches_dict}
+        return {'mensaje': 'Imagen subida satisfactoriamente', 'se agregó en la fila': row_to_add, 'datos': matches_dict}
     except Exception as e:
          return {'message': 'An error occurred', 'error': str(e)}
-
