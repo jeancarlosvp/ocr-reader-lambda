@@ -6,6 +6,7 @@ from app.payments.routers import router as payments_router
 
 app = FastAPI()
 
+print("okokokok")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGIN.split(","),
