@@ -1,14 +1,5 @@
 import regex as re
 
-def get_row(worksheet):
-    '''
-    Get last row from worksheet
-    input: worksheet - worksheet object
-    output: row - int
-    '''
-    row = len(worksheet.get('B1:B')) + 1
-    return row
-
 def get_data_bcp(result_list):
     '''
     Get data from BCP

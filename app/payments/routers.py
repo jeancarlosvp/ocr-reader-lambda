@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, status, UploadFile
 from typing import Union
 from app.security import valid_header
-from app.config import API_KEY, SEND_GS
+from app.config import API_KEY, SEND_GS, URL_SENDER_GS
 
 from app.payments.utils import (
     process_uploaded_file,
@@ -19,8 +19,10 @@ async def upload_payment_file(file: Union[UploadFile, None], request: Request):
         if not file:
             return {"message": "No file uploaded"}
         result_list = process_uploaded_file(file)
+        print(result_list)
         banks = ["INTERBANK", "BBVA", "SCOTIABANK", "BANBIF"]
         selection = select_bank(result_list, banks)
+        print(selection)
         matches_dict = get_bank_data(selection, result_list)
         print(matches_dict)
         to_send = SEND_GS == "True"
@@ -34,7 +36,7 @@ async def upload_payment_file(file: Union[UploadFile, None], request: Request):
                 "operation_code": matches_dict.get("Codigo de operacion", ""),
                 "card_number": matches_dict.get("Numero tarjeta", "")
             }
-            res = requests.post("https://sender-data-gss-f511a3058b22.herokuapp.com/datapayments/", json=data_payment)
+            res = requests.post(URL_SENDER_GS, json=data_payment)
             if res.status_code != 201:
                 return {"message": "Error sending data to google sheet"}
             return {'mensaje': 'Imagen subida satisfactoriamente', 'datos': matches_dict}
